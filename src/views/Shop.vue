@@ -6,13 +6,17 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex';
+import { createNamespacedHelpers, mapMutations } from 'vuex';
 
 const books = createNamespacedHelpers('books');
 
 export default {
     async created() {
+        this.activateLoader();
+
         await this.fetchBooks();
+
+        this.deactivateLoader();
     },
     computed: {
         ...books.mapState({
@@ -22,7 +26,11 @@ export default {
     methods: {
         ...books.mapActions({
             fetchBooks: 'fetch'
-        })
+        }),
+        ...mapMutations([
+            'activateLoader',
+            'deactivateLoader'
+        ])
     }
 };
 </script>

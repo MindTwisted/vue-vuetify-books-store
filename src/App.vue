@@ -1,5 +1,7 @@
 <template>
     <v-app>
+        <Loader :active="isLoading" />
+
         <v-toolbar app>
             <v-toolbar-title class="headline text-uppercase">
                 <span>Books Store</span>
@@ -20,12 +22,23 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import Loader from '@components/Loader';
+
 export default {
     name: 'App',
     data() {
         return {
             //
         };
+    },
+    components: {
+        Loader
+    },
+    computed: {
+        ...mapState([
+            'isLoading'
+        ])
     }
 };
 </script>

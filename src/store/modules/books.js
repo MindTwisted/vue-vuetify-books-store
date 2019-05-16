@@ -1,4 +1,5 @@
 import api from '@api';
+import { FILL } from '@store/types/mutations';
 
 const books = {
     namespaced: true,
@@ -6,7 +7,7 @@ const books = {
         books: []
     },
     mutations: {
-        fill(state, payload) {
+        [FILL](state, payload) {
             state.books = payload.books;
         }
     },
@@ -14,7 +15,7 @@ const books = {
         async fetch({ commit }) {
             const response = await api.books.fetch();
 
-            commit('fill', response.data.data);
+            commit(FILL, response.data.data);
         }
     }
 };

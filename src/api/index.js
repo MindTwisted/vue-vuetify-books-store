@@ -1,4 +1,4 @@
-import books from './resources/books';
+import books from '@api/resources/books';
 
 export default {
     books
