@@ -1,16 +1,20 @@
 <template>
     <div class="shop">
-        <h1>This is a shop page</h1>
-        {{ books }}
+        <h1 class="display-3 font-weight-light ml-4">Shop</h1>
+        <ShopBookList :books="books" />
     </div>
 </template>
 
 <script>
 import { createNamespacedHelpers, mapMutations } from 'vuex';
+import ShopBookList from '@components/ShopBookList';
 
 const books = createNamespacedHelpers('books');
 
 export default {
+    components: {
+        ShopBookList
+    },
     async created() {
         this.activateLoader();
 

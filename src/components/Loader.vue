@@ -8,6 +8,7 @@
             background-color="#000000"
             :height="90"
             :width="90"
+            :opacity="0.75"
         />
     </div>
 </template>

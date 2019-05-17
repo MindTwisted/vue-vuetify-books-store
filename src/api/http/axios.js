@@ -1,7 +1,8 @@
 import axios from 'axios';
+import config from '@config';
 
 const instance = axios.create({
-    baseURL: 'http://docker-machine.test:3000/api'
+    baseURL: config.apiUrl
 });
 
 instance.interceptors.request.use(config => {
