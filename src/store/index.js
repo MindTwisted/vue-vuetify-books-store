@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import { ACTIVATE_LOADER, DEACTIVATE_LOADER } from '@store/types/mutations';
 import books from '@store/modules/books';
 
 Vue.use(Vuex);
@@ -10,10 +11,10 @@ export default new Vuex.Store({
         isLoading: false
     },
     mutations: {
-        activateLoader(state) {
+        [ACTIVATE_LOADER](state) {
             state.isLoading = true;
         },
-        deactivateLoader(state) {
+        [DEACTIVATE_LOADER](state) {
             state.isLoading = false;
         }
     },
