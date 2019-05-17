@@ -1,4 +1,5 @@
-# vue-vuetify-books-store
+# Books Store
+Books store client created with Vue, Vuex and Vuetify.
 
 ## Project setup
 ```
