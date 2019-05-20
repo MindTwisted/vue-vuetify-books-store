@@ -7,10 +7,10 @@
             temporary
         >
             <ShopFilterPanel
-                v-bind="bookFilters"
-                @setFilters="setFilters"
-                @submitFilters="submitFilters"
-                @clearFilters="clearFilters"
+                :search="search"
+                @setFilters="$emit('setFilters', $event)"
+                @submitFilters="$emit('submitFilters')"
+                @clearFilters="$emit('clearFilters')"
             />
         </v-navigation-drawer>
     </div>
@@ -25,30 +25,16 @@ export default {
         ShopFilterOpenButton,
         ShopFilterPanel
     },
+    props: {
+        search: {
+            type: String,
+            required: true
+        }
+    },
     data() {
         return {
-            isVisible: false,
-            bookFilters: {
-                search: ''
-            }
+            isVisible: false
         };
-    },
-    methods: {
-        setFilters({ search }) {
-            this.bookFilters = {
-                search
-            };
-        },
-        submitFilters() {
-            this.$emit('submitFilters', this.bookFilters);
-        },
-        clearFilters() {
-            this.bookFilters = {
-                search: ''
-            };
-
-            this.$emit('submitFilters', this.bookFilters);
-        }
     }
 };
 </script>

@@ -1,6 +1,11 @@
 <template>
     <div class="shop">
-        <ShopFilter @submitFilters="fetchReplaceBooks" />
+        <ShopFilter
+            v-bind="bookFilters"
+            @setFilters="setFilters"
+            @submitFilters="submitFilters"
+            @clearFilters="clearFilters"
+        />
         <h1 class="display-3 font-weight-light ml-4">Shop</h1>
         <ShopBookList :books="books" />
     </div>
@@ -19,7 +24,10 @@ export default {
     },
     data() {
         return {
-            books: []
+            books: [],
+            bookFilters: {
+                search: ''
+            }
         };
     },
     async created() {
@@ -30,14 +38,29 @@ export default {
             'activateLoader',
             'deactivateLoader'
         ]),
-        async fetchReplaceBooks(filters = {}) {
+        async fetchReplaceBooks() {
             this.activateLoader();
 
-            const response = await api.books.fetch(filters);
+            const response = await api.books.fetch(this.bookFilters);
 
             this.books = response.data.data.books;
 
             this.deactivateLoader();
+        },
+        setFilters({ search }) {
+            this.bookFilters = {
+                search
+            };
+        },
+        submitFilters() {
+            this.fetchReplaceBooks();
+        },
+        clearFilters() {
+            this.bookFilters = {
+                search: ''
+            };
+
+            this.fetchReplaceBooks();
         }
     }
 };

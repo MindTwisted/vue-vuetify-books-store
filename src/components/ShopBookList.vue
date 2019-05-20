@@ -4,6 +4,7 @@
         fluid
     >
         <v-layout
+            v-if="books.length"
             row
             wrap
         >
@@ -19,6 +20,10 @@
                 <ShopBookItem :book="book" />
             </v-flex>
         </v-layout>
+        <div
+            v-else
+            class="headline font-weight-thin text-xs-center mt-3"
+        >There are no books.</div>
     </v-container>
 </template>
 
