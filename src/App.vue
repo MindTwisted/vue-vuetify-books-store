@@ -1,6 +1,7 @@
 <template>
     <v-app>
         <Loader :active="isLoading" />
+        <TheScrollTop />
 
         <v-toolbar app>
             <v-toolbar-title class="headline text-uppercase">
@@ -24,6 +25,7 @@
 <script>
 import { mapState } from 'vuex';
 import Loader from '@components/Loader';
+import TheScrollTop from '@components/TheScrollTop';
 
 export default {
     name: 'App',
@@ -33,7 +35,8 @@ export default {
         };
     },
     components: {
-        Loader
+        Loader,
+        TheScrollTop
     },
     computed: {
         ...mapState([
