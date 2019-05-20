@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { ACTIVATE_LOADER, DEACTIVATE_LOADER } from '@store/types/mutations';
-import books from '@store/modules/books';
 
 Vue.use(Vuex);
 
@@ -18,8 +17,12 @@ export default new Vuex.Store({
             state.isLoading = false;
         }
     },
-    actions: {},
-    modules: {
-        books
+    actions: {
+        activateLoader({ commit }) {
+            commit(ACTIVATE_LOADER);
+        },
+        deactivateLoader({ commit }) {
+            commit(DEACTIVATE_LOADER);
+        }
     }
 });

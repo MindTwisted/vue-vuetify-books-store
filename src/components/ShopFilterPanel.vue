@@ -13,28 +13,28 @@
         <v-divider></v-divider>
 
         <v-list>
-            <form @submit.prevent="submitFilter">
+            <form @submit.prevent="submitFilters">
                 <v-list-tile>
                     <v-text-field
-                        :value="filters.search"
-                        @input="updateFilterSearch"
+                        v-model="searchFilter"
                         label="Search"
+                        clearable
                     ></v-text-field>
                 </v-list-tile>
 
                 <v-list-tile>
                     <v-btn
                         color="success"
-                        @click="submitFilter"
+                        @click="submitFilters"
                     >
                         Submit
                     </v-btn>
 
                     <v-btn
                         color="error"
-                        @click="resetFilter"
+                        @click="clearFilters"
                     >
-                        Reset
+                        <v-icon>clear</v-icon>
                     </v-btn>
                 </v-list-tile>
             </form>
@@ -43,47 +43,31 @@
 </template>
 
 <script>
-import { createNamespacedHelpers, mapMutations } from 'vuex';
-import { UPDATE_FILTER_SEARCH, RESET_FILTER, ACTIVATE_LOADER, DEACTIVATE_LOADER } from '@store/types/mutations';
-import { FETCH_INITIAL_BOOKS } from '@store/types/actions';
-
-const books = createNamespacedHelpers('books');
-
 export default {
+    props: {
+        search: {
+            type: String,
+            required: true
+        }
+    },
     computed: {
-        ...books.mapState({
-            filters: state => state.filters
-        })
+        searchFilter: {
+            get() {
+                return this.search;
+            },
+            set(value) {
+                value = (value && value.trim()) || '';
+
+                this.$emit('setFilters', { search: value });
+            }
+        }
     },
     methods: {
-        ...mapMutations([
-            ACTIVATE_LOADER,
-            DEACTIVATE_LOADER
-        ]),
-        ...books.mapMutations([
-            UPDATE_FILTER_SEARCH,
-            RESET_FILTER
-        ]),
-        ...books.mapActions([
-            FETCH_INITIAL_BOOKS
-        ]),
-        updateFilterSearch(value) {
-            this[UPDATE_FILTER_SEARCH]({ search: value.trim() });
+        submitFilters() {
+            this.$emit('submitFilters');
         },
-        async submitFilter() {
-            this[ACTIVATE_LOADER]();
-
-            await this[FETCH_INITIAL_BOOKS]();
-
-            this[DEACTIVATE_LOADER]();
-        },
-        async resetFilter() {
-            this[RESET_FILTER]();
-            this[ACTIVATE_LOADER]();
-
-            await this[FETCH_INITIAL_BOOKS]();
-
-            this[DEACTIVATE_LOADER]();
+        clearFilters() {
+            this.$emit('clearFilters');
         }
     }
 };

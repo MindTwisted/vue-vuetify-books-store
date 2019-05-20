@@ -1,13 +1,17 @@
 <template>
     <div class="shopFilter">
         <ShopFilterOpenButton @showPanel="isVisible = true" />
-
         <v-navigation-drawer
             v-model="isVisible"
             fixed
             temporary
         >
-            <ShopFilterPanel />
+            <ShopFilterPanel
+                v-bind="bookFilters"
+                @setFilters="setFilters"
+                @submitFilters="submitFilters"
+                @clearFilters="clearFilters"
+            />
         </v-navigation-drawer>
     </div>
 </template>
@@ -23,8 +27,28 @@ export default {
     },
     data() {
         return {
-            isVisible: false
+            isVisible: false,
+            bookFilters: {
+                search: ''
+            }
         };
+    },
+    methods: {
+        setFilters({ search }) {
+            this.bookFilters = {
+                search
+            };
+        },
+        submitFilters() {
+            this.$emit('submitFilters', this.bookFilters);
+        },
+        clearFilters() {
+            this.bookFilters = {
+                search: ''
+            };
+
+            this.$emit('submitFilters', this.bookFilters);
+        }
     }
 };
 </script>
