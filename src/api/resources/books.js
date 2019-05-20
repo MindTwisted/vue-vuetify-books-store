@@ -10,7 +10,7 @@ export default {
             const value = filters[key];
 
             if (value) {
-                URL += `${key}=${value}`;
+                URL += `${key}=${value}&`;
             }
         });
 

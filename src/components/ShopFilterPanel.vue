@@ -34,7 +34,7 @@
                         color="error"
                         @click="clearFilters"
                     >
-                        <v-icon>clear</v-icon>
+                        Reset
                     </v-btn>
                 </v-list-tile>
             </form>
