@@ -1,11 +1,11 @@
 import axios from '@api/http/axios';
-import { BOOKS_URL } from '@api/http/urls';
+import { AUTHORS_URL } from '@api/http/urls';
 
 export default {
     fetch(filters) {
-        const allowedFilters = ['search', 'authors', 'genres', 'offset'];
+        const allowedFilters = ['search'];
         const filterKeys = Object.keys(filters);
-        let URL = `${BOOKS_URL}?`;
+        let URL = `${AUTHORS_URL}?`;
 
         filterKeys
             .filter(item => allowedFilters.includes(item))

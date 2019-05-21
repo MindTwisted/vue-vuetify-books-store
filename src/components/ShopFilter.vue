@@ -10,7 +10,6 @@
                 :search="search"
                 @setFilters="$emit('setFilters', $event)"
                 @submitFilters="$emit('submitFilters')"
-                @clearFilters="$emit('clearFilters')"
             />
         </v-navigation-drawer>
     </div>

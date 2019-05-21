@@ -34,7 +34,7 @@ export default {
             this.offsetTop = e.pageY;
         },
         scrollTop() {
-            return goTo(0)
+            return goTo(0);
         }
     }
 };

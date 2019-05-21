@@ -12,38 +12,35 @@
 
         <v-divider></v-divider>
 
-        <v-list>
-            <form @submit.prevent="submitFilters">
-                <v-list-tile>
-                    <v-text-field
-                        v-model="searchFilter"
-                        label="Search"
-                        clearable
-                    ></v-text-field>
-                </v-list-tile>
+        <form
+            class="shopFilterPanel__form"
+            @submit.prevent="submitFilters">
+            <v-text-field
+                v-model="searchFilter"
+                label="Search"
+                clearable
+            ></v-text-field>
 
-                <v-list-tile>
-                    <v-btn
-                        color="success"
-                        @click="submitFilters"
-                    >
-                        Submit
-                    </v-btn>
+            <ShopFilterPanelAuthors @setFilters="$emit('setFilters', $event)" />
 
-                    <v-btn
-                        color="error"
-                        @click="clearFilters"
-                    >
-                        Reset
-                    </v-btn>
-                </v-list-tile>
-            </form>
-        </v-list>
+            <v-btn
+                block
+                color="success"
+                @click="$emit('submitFilters')"
+            >
+                <v-icon>find_replace</v-icon>
+            </v-btn>
+        </form>
     </div>
 </template>
 
 <script>
+import ShopFilterPanelAuthors from '@components/ShopFilterPanelAuthors';
+
 export default {
+    components: {
+        ShopFilterPanelAuthors
+    },
     props: {
         search: {
             type: String,
@@ -61,14 +58,14 @@ export default {
                 this.$emit('setFilters', { search: value });
             }
         }
-    },
-    methods: {
-        submitFilters() {
-            this.$emit('submitFilters');
-        },
-        clearFilters() {
-            this.$emit('clearFilters');
-        }
     }
 };
 </script>
+
+<style lang="scss" scoped>
+.shopFilterPanel {
+    &__form {
+        padding: 0.75rem;
+    }
+}
+</style>

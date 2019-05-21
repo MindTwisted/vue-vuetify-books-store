@@ -4,7 +4,6 @@
             v-bind="filters"
             @setFilters="setFilters"
             @submitFilters="submitFilters"
-            @clearFilters="clearFilters"
         />
         <h1 class="display-3 font-weight-light ml-4">Shop</h1>
         <ShopBookList :books="books" />
@@ -34,7 +33,8 @@ export default {
         return {
             books: [],
             filters: {
-                search: ''
+                search: '',
+                authors: ''
             },
             navigation: {
                 isFinished: false,
@@ -70,7 +70,7 @@ export default {
             const response = await api.books.fetch({ ...this.filters, ...this.navigation });
             const newBooks = response.data.data.books;
 
-            if (!newBooks.length) {
+            if (newBooks.length < 50) {
                 this.navigation.isFinished = true;
             }
 
@@ -78,11 +78,9 @@ export default {
             this.deactivateLoader();
         },
         setFilters(filters) {
-            this.filters = filters;
-        },
-        resetFilters() {
             this.filters = {
-                search: ''
+                ...this.filters,
+                ...filters
             };
         },
         resetNavigation() {
@@ -92,11 +90,6 @@ export default {
             };
         },
         submitFilters() {
-            this.resetNavigation();
-            this.fetchReplaceBooks();
-        },
-        clearFilters() {
-            this.resetFilters();
             this.resetNavigation();
             this.fetchReplaceBooks();
         }
