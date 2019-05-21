@@ -24,19 +24,31 @@
             <ShopFilterPanelAutocomplete
                 @setFilters="$emit('setFilters', $event)"
                 fieldName="authors"
+                :rawData="rawAuthors"
             />
             <ShopFilterPanelAutocomplete
                 @setFilters="$emit('setFilters', $event)"
                 fieldName="genres"
+                :rawData="rawGenres"
             />
 
-            <v-btn
-                block
-                color="success"
-                @click="$emit('submitFilters')"
-            >
-                <v-icon>find_replace</v-icon>
-            </v-btn>
+            <div class="shopFilterPanel__formButtons">
+                <v-btn
+                    block
+                    color="success"
+                    @click="$emit('submitFilters')"
+                >
+                    <v-icon>find_replace</v-icon>
+                </v-btn>
+
+                <v-btn
+                    block
+                    color="error"
+                    @click="$emit('clearFilters')"
+                >
+                    <v-icon>clear</v-icon>
+                </v-btn>
+            </div>
         </form>
     </div>
 </template>
@@ -51,6 +63,14 @@ export default {
     props: {
         search: {
             type: String,
+            required: true
+        },
+        rawAuthors: {
+            type: Array,
+            required: true
+        },
+        rawGenres: {
+            type: Array,
             required: true
         }
     },
@@ -73,6 +93,14 @@ export default {
 .shopFilterPanel {
     &__form {
         padding: 0.75rem;
+    }
+
+    &__formButtons {
+        display: flex;
+
+        & > * {
+            margin: 0 0.35rem;
+        }
     }
 }
 </style>

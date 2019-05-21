@@ -4,6 +4,7 @@
             v-bind="filters"
             @setFilters="setFilters"
             @submitFilters="submitFilters"
+            @clearFilters="clearFilters"
         />
         <h1 class="display-3 font-weight-light ml-4">Shop</h1>
         <ShopBookList :books="books" />
@@ -23,6 +24,21 @@ import ShopBookList from '@components/ShopBookList';
 import ShopFilter from '@components/ShopFilter';
 import LoadMoreButton from '@components/LoadMoreButton';
 
+const initialState = {
+    books: [],
+    filters: {
+        search: '',
+        authors: '',
+        rawAuthors: [],
+        genres: '',
+        rawGenres: []
+    },
+    navigation: {
+        isFinished: false,
+        offset: 0
+    }
+};
+
 export default {
     components: {
         ShopBookList,
@@ -31,16 +47,7 @@ export default {
     },
     data() {
         return {
-            books: [],
-            filters: {
-                search: '',
-                authors: '',
-                genres: ''
-            },
-            navigation: {
-                isFinished: false,
-                offset: 0
-            }
+            ...initialState
         };
     },
     async created() {
@@ -48,7 +55,16 @@ export default {
     },
     computed: {
         canLoadMore() {
-            return this.books.length > 0 && !this.navigation.isFinished;
+            return this.books.length >= 50 &&
+                !this.navigation.isFinished;
+        }
+    },
+    watch: {
+        filters: {
+            handler(value) {
+                this.filters.authors = value.rawAuthors.map(item => item._id).join(',');
+                this.filters.genres = value.rawGenres.map(item => item._id).join(',');
+            }
         }
     },
     methods: {
@@ -84,13 +100,18 @@ export default {
                 ...filters
             };
         },
+        resetFilters() {
+            this.filters = { ...initialState.filters };
+        },
         resetNavigation() {
-            this.navigation = {
-                isFinished: false,
-                offset: 0
-            };
+            this.navigation = { ...initialState.navigation };
         },
         submitFilters() {
+            this.resetNavigation();
+            this.fetchReplaceBooks();
+        },
+        clearFilters() {
+            this.resetFilters();
             this.resetNavigation();
             this.fetchReplaceBooks();
         }

@@ -8,8 +8,11 @@
         >
             <ShopFilterPanel
                 :search="search"
+                :rawAuthors="rawAuthors"
+                :rawGenres="rawGenres"
                 @setFilters="$emit('setFilters', $event)"
                 @submitFilters="$emit('submitFilters')"
+                @clearFilters="$emit('clearFilters')"
             />
         </v-navigation-drawer>
     </div>
@@ -27,6 +30,14 @@ export default {
     props: {
         search: {
             type: String,
+            required: true
+        },
+        rawAuthors: {
+            type: Array,
+            required: true
+        },
+        rawGenres: {
+            type: Array,
             required: true
         }
     },

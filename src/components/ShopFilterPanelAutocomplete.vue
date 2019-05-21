@@ -4,21 +4,21 @@
         small-chips
         deletable-chips
         clearable
-        :label="labelField"
+        :label="ucfirstFieldName"
         :loading="isLoading"
         :disabled="isLoading"
-        :items="items"
+        :items="cachedItemsArray"
+        :value="rawData"
         :search-input.sync="search"
         item-text="name"
         item-value="_id"
-        cache-items
         hide-no-data
         @change="onSelect"
     ></v-autocomplete>
 </template>
 
 <script>
-import { debounce } from 'lodash';
+import { debounce, upperFirst } from 'lodash';
 import api from '@api';
 
 export default {
@@ -26,20 +26,24 @@ export default {
         fieldName: {
             type: String,
             required: true
+        },
+        rawData: {
+            type: Array,
+            required: true
         }
     },
     data() {
         return {
             items: [],
             isLoading: false,
-            search: null
+            search: null,
+            cachedItems: {},
+            cachedItemsArray: []
         };
     },
     computed: {
-        labelField() {
-            const fieldName = this.fieldName;
-
-            return fieldName[0].toUpperCase() + fieldName.slice(1);
+        ucfirstFieldName() {
+            return upperFirst(this.fieldName);
         }
     },
     methods: {
@@ -52,10 +56,11 @@ export default {
             this.items = response.data.data[fieldName];
             this.isLoading = false;
         }, 500),
-        onSelect(value) {
-            const fieldName = this.fieldName;
+        onSelect(values) {
+            const rawValues = this.cachedItemsArray.filter(item => values.includes(item._id));
+            const ucfirstFieldName = this.ucfirstFieldName;
 
-            this.$emit('setFilters', { [fieldName]: value.join(',') });
+            this.$emit('setFilters', { [`raw${ucfirstFieldName}`]: rawValues });
         }
     },
     watch: {
@@ -65,6 +70,21 @@ export default {
             }
 
             this.fetchData(value);
+        },
+        items(value) {
+            const localCachedItems = {};
+
+            value.map(item => {
+                localCachedItems[JSON.stringify(item)] = item;
+            });
+
+            this.cachedItems = {
+                ...this.cachedItems,
+                ...localCachedItems
+            };
+        },
+        cachedItems(values) {
+            this.cachedItemsArray = Object.values(values);
         }
     }
 };
