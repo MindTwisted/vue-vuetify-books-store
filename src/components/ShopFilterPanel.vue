@@ -21,8 +21,14 @@
                 clearable
             ></v-text-field>
 
-            <ShopFilterPanelAuthors @setFilters="$emit('setFilters', $event)" />
-            <ShopFilterPanelGenres @setFilters="$emit('setFilters', $event)" />
+            <ShopFilterPanelAutocomplete
+                @setFilters="$emit('setFilters', $event)"
+                fieldName="authors"
+            />
+            <ShopFilterPanelAutocomplete
+                @setFilters="$emit('setFilters', $event)"
+                fieldName="genres"
+            />
 
             <v-btn
                 block
@@ -36,13 +42,11 @@
 </template>
 
 <script>
-import ShopFilterPanelAuthors from '@components/ShopFilterPanelAuthors';
-import ShopFilterPanelGenres from '@components/ShopFilterPanelGenres';
+import ShopFilterPanelAutocomplete from '@components/ShopFilterPanelAutocomplete';
 
 export default {
     components: {
-        ShopFilterPanelAuthors,
-        ShopFilterPanelGenres
+        ShopFilterPanelAutocomplete
     },
     props: {
         search: {

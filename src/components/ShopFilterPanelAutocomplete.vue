@@ -4,7 +4,7 @@
         small-chips
         deletable-chips
         clearable
-        label="Genres"
+        :label="labelField"
         :loading="isLoading"
         :disabled="isLoading"
         :items="items"
@@ -22,6 +22,12 @@ import { debounce } from 'lodash';
 import api from '@api';
 
 export default {
+    props: {
+        fieldName: {
+            type: String,
+            required: true
+        }
+    },
     data() {
         return {
             items: [],
@@ -29,17 +35,27 @@ export default {
             search: null
         };
     },
+    computed: {
+        labelField() {
+            const fieldName = this.fieldName;
+
+            return fieldName[0].toUpperCase() + fieldName.slice(1);
+        }
+    },
     methods: {
         fetchData: debounce(async function(value) {
             this.isLoading = true;
 
-            const response = await api.genres.fetch({ search: value });
+            const fieldName = this.fieldName;
+            const response = await api[fieldName].fetch({ search: value });
 
-            this.items = response.data.data.genres;
+            this.items = response.data.data[fieldName];
             this.isLoading = false;
         }, 500),
         onSelect(value) {
-            this.$emit('setFilters', { genres: value.join(',') });
+            const fieldName = this.fieldName;
+
+            this.$emit('setFilters', { [fieldName]: value.join(',') });
         }
     },
     watch: {
