@@ -34,7 +34,8 @@ export default {
             books: [],
             filters: {
                 search: '',
-                authors: ''
+                authors: '',
+                genres: ''
             },
             navigation: {
                 isFinished: false,

@@ -22,6 +22,7 @@
             ></v-text-field>
 
             <ShopFilterPanelAuthors @setFilters="$emit('setFilters', $event)" />
+            <ShopFilterPanelGenres @setFilters="$emit('setFilters', $event)" />
 
             <v-btn
                 block
@@ -36,10 +37,12 @@
 
 <script>
 import ShopFilterPanelAuthors from '@components/ShopFilterPanelAuthors';
+import ShopFilterPanelGenres from '@components/ShopFilterPanelGenres';
 
 export default {
     components: {
-        ShopFilterPanelAuthors
+        ShopFilterPanelAuthors,
+        ShopFilterPanelGenres
     },
     props: {
         search: {
