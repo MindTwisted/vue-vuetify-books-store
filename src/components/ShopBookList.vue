@@ -17,7 +17,10 @@
                 v-for="book in books"
                 :key="book._id"
             >
-                <ShopBookItem :book="book" />
+                <ShopBookItem
+                    :book="book"
+                    @setAndSubmitFilters="$emit('setAndSubmitFilters', $event)"
+                />
             </v-flex>
         </v-layout>
         <div

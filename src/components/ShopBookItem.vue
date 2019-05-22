@@ -32,7 +32,10 @@
                             v-for="genre in book.genres"
                             :key="genre._id"
                         >
-                            <v-chip small>
+                            <v-chip
+                                small
+                                @click="filterByGenre(genre)"
+                            >
                                 {{ genre.name }}
                             </v-chip>
                         </v-item>
@@ -48,6 +51,7 @@
                             <v-chip
                                 small
                                 dark
+                                @click="filterByAuthor(author)"
                             >
                                 {{ author.name }}
                             </v-chip>
@@ -85,6 +89,14 @@ export default {
     computed: {
         fullImagePath() {
             return `${config.rootUrl}/${this.book.imagePath}`;
+        }
+    },
+    methods: {
+        filterByGenre(genre) {
+            this.$emit('setAndSubmitFilters', { rawGenres: [genre] });
+        },
+        filterByAuthor(author) {
+            this.$emit('setAndSubmitFilters', { rawAuthors: [author] });
         }
     }
 };

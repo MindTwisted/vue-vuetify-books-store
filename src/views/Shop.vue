@@ -7,7 +7,10 @@
             @clearFilters="clearFilters"
         />
         <h1 class="display-3 font-weight-light ml-4">Shop</h1>
-        <ShopBookList :books="books" />
+        <ShopBookList
+            :books="books"
+            @setAndSubmitFilters="setAndSubmitFilters"
+        />
         <div
             v-if="canLoadMore"
             class="text-xs-center mt-3"
@@ -65,14 +68,6 @@ export default {
                 this.filters.genres);
         }
     },
-    watch: {
-        filters: {
-            handler(value) {
-                this.filters.authors = value.rawAuthors.map(item => item._id).join(',');
-                this.filters.genres = value.rawGenres.map(item => item._id).join(',');
-            }
-        }
-    },
     methods: {
         ...mapActions([
             'activateLoader',
@@ -102,6 +97,14 @@ export default {
             this.deactivateLoader();
         },
         setFilters(filters) {
+            if (filters.rawAuthors) {
+                filters.authors = filters.rawAuthors.map(item => item._id).join(',');
+            }
+
+            if (filters.rawGenres) {
+                filters.genres = filters.rawGenres.map(item => item._id).join(',');
+            }
+
             this.filters = {
                 ...this.filters,
                 ...filters
@@ -116,6 +119,11 @@ export default {
         submitFilters() {
             this.resetNavigation();
             this.fetchReplaceBooks();
+        },
+        setAndSubmitFilters(filters) {
+            this.resetFilters();
+            this.setFilters(filters);
+            this.submitFilters();
         },
         clearFilters() {
             this.resetFilters();

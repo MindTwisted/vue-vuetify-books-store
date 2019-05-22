@@ -61,6 +61,18 @@ export default {
             const ucfirstFieldName = this.ucfirstFieldName;
 
             this.$emit('setFilters', { [`raw${ucfirstFieldName}`]: rawValues });
+        },
+        setCachedItems(values) {
+            const localCachedItems = {};
+
+            values.map(item => {
+                localCachedItems[JSON.stringify(item)] = item;
+            });
+
+            this.cachedItems = {
+                ...this.cachedItems,
+                ...localCachedItems
+            };
         }
     },
     watch: {
@@ -71,17 +83,11 @@ export default {
 
             this.fetchData(value);
         },
-        items(value) {
-            const localCachedItems = {};
-
-            value.map(item => {
-                localCachedItems[JSON.stringify(item)] = item;
-            });
-
-            this.cachedItems = {
-                ...this.cachedItems,
-                ...localCachedItems
-            };
+        items(values) {
+            this.setCachedItems(values);
+        },
+        rawData(values) {
+            this.setCachedItems(values);
         },
         cachedItems(values) {
             this.cachedItemsArray = Object.values(values);
