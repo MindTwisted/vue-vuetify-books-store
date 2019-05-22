@@ -27,6 +27,7 @@ import LoadMoreButton from '@components/LoadMoreButton';
 const initialState = {
     books: [],
     filters: {
+        isFiltersApplied: false,
         search: '',
         authors: '',
         rawAuthors: [],
@@ -57,6 +58,11 @@ export default {
         canLoadMore() {
             return this.books.length >= 50 &&
                 !this.navigation.isFinished;
+        },
+        isFiltersSet() {
+            return Boolean(this.filters.search ||
+                this.filters.authors ||
+                this.filters.genres);
         }
     },
     watch: {
@@ -78,6 +84,7 @@ export default {
             const response = await api.books.fetch(this.filters);
 
             this.books = response.data.data.books;
+            this.filters.isFiltersApplied = this.isFiltersSet;
             this.deactivateLoader();
         },
         async fetchAppendBooks() {

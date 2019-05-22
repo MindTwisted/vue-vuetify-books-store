@@ -1,6 +1,9 @@
 <template>
     <div class="shopFilter">
-        <ShopFilterOpenButton @showPanel="isVisible = true" />
+        <ShopFilterOpenButton
+            :isFiltersApplied="isFiltersApplied"
+            @showPanel="isVisible = true"
+        />
         <v-navigation-drawer
             v-model="isVisible"
             fixed
@@ -38,6 +41,10 @@ export default {
         },
         rawGenres: {
             type: Array,
+            required: true
+        },
+        isFiltersApplied: {
+            type: Boolean,
             required: true
         }
     },
