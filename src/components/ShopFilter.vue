@@ -1,7 +1,7 @@
 <template>
     <div class="shopFilter">
         <ShopFilterOpenButton
-            :isFiltersApplied="isFiltersApplied"
+            :isFiltersApplied="filters.isFiltersApplied"
             @showPanel="isVisible = true"
         />
         <v-navigation-drawer
@@ -10,48 +10,45 @@
             temporary
         >
             <ShopFilterPanel
-                :search="search"
-                :rawAuthors="rawAuthors"
-                :rawGenres="rawGenres"
-                @setFilters="$emit('setFilters', $event)"
-                @submitFilters="$emit('submitFilters')"
-                @clearFilters="$emit('clearFilters')"
+                :search="filters.search"
+                :rawAuthors="filters.rawAuthors"
+                :rawGenres="filters.rawGenres"
+                @setFilters="setFilters($event)"
+                @submitFilters="fetchReplaceBooks"
+                @clearFilters="clearFilters"
             />
         </v-navigation-drawer>
     </div>
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex';
 import ShopFilterOpenButton from '@components/ShopFilterOpenButton';
 import ShopFilterPanel from '@components/ShopFilterPanel';
+
+const books = createNamespacedHelpers('books');
 
 export default {
     components: {
         ShopFilterOpenButton,
         ShopFilterPanel
     },
-    props: {
-        search: {
-            type: String,
-            required: true
-        },
-        rawAuthors: {
-            type: Array,
-            required: true
-        },
-        rawGenres: {
-            type: Array,
-            required: true
-        },
-        isFiltersApplied: {
-            type: Boolean,
-            required: true
-        }
-    },
     data() {
         return {
             isVisible: false
         };
+    },
+    computed: {
+        ...books.mapState([
+            'filters'
+        ])
+    },
+    methods: {
+        ...books.mapActions([
+            'setFilters',
+            'fetchReplaceBooks',
+            'clearFilters'
+        ])
     }
 };
 </script>

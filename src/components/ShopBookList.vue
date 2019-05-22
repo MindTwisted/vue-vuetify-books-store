@@ -19,7 +19,7 @@
             >
                 <ShopBookItem
                     :book="book"
-                    @setAndSubmitFilters="$emit('setAndSubmitFilters', $event)"
+                    @setAndSubmitFilters="setAndSubmitFilters($event)"
                 />
             </v-flex>
         </v-layout>
@@ -31,17 +31,24 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex';
 import ShopBookItem from '@components/ShopBookItem';
 
+const books = createNamespacedHelpers('books');
+
 export default {
-    props: {
-        books: {
-            type: Array,
-            required: true
-        }
-    },
     components: {
         ShopBookItem
+    },
+    computed: {
+        ...books.mapState([
+            'books'
+        ])
+    },
+    methods: {
+        ...books.mapActions([
+            'setAndSubmitFilters'
+        ])
     }
 };
 </script>
