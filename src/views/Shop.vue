@@ -1,7 +1,16 @@
 <template>
     <div class="shop">
         <ShopFilter />
-        <h1 class="display-3 font-weight-light ml-4">Shop</h1>
+        <h1 class="display-3 font-weight-light">Shop</h1>
+        <v-breadcrumbs
+            large
+            light
+            :items="items"
+        >
+            <template v-slot:divider>
+                <v-icon>arrow_forward</v-icon>
+            </template>
+        </v-breadcrumbs>
         <ShopBookList />
         <div
             v-if="isAbleLoadMore"
@@ -25,6 +34,22 @@ export default {
         ShopBookList,
         ShopFilter,
         LoadMoreButton
+    },
+    data() {
+        return {
+            items: [
+                {
+                    text: 'Home',
+                    disabled: false,
+                    to: '/'
+                },
+                {
+                    text: 'Shop',
+                    disabled: true,
+                    to: 'shop'
+                }
+            ]
+        };
     },
     created() {
         this.resetFilters();
