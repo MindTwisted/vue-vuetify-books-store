@@ -18,6 +18,14 @@ export default new Vuex.Store({
             state.isLoading = false;
         }
     },
+    actions: {
+        activateLoader({ commit }) {
+            commit(ACTIVATE_LOADER);
+        },
+        deactivateLoader({ commit }) {
+            commit(DEACTIVATE_LOADER);
+        }
+    },
     modules: {
         books
     }

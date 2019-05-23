@@ -132,6 +132,9 @@ export default {
             return Boolean(state.filters.search ||
                 state.filters.authors ||
                 state.filters.genres);
+        },
+        getBookById: (state) => (id) => {
+            return state.books.find(book => book._id === id);
         }
     }
 };

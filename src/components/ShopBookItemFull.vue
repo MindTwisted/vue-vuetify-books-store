@@ -1,10 +1,10 @@
 <template>
-    <v-card class="shopBookItem">
-        <div class="shopBookItem__content">
+    <v-card class="shopBookItemFull">
+        <div class="shopBookItemFull__content">
             <v-img
                 v-if="book.image"
                 :src="fullImagePath"
-                aspect-ratio="1.75"
+                aspect-ratio="3.25"
             ></v-img>
 
             <v-card-title primary-title>
@@ -14,55 +14,51 @@
             <v-divider></v-divider>
 
             <v-card-text>
-                <div class="shopBookItem__priceWrapper">
-                    <div class="shopBookItem__price">
+                <div class="shopBookItemFull__priceWrapper">
+                    <div class="shopBookItemFull__price">
                         {{ book.price | priceWithDiscount(book.discount) | formatPrice }}
                     </div>
                     <div
                         v-if="book.discount > 0"
-                        class="shopBookItem__oldPrice grey--text"
+                        class="shopBookItemFull__oldPrice grey--text"
                     >
                         {{ book.price | formatPrice }}
                     </div>
                 </div>
-                <div class="shopBookItem__genres">
+                <div class="shopBookItemFull__genres">
                     <v-subheader>Genres</v-subheader>
                     <v-chip
-                        class="shopBookItem__tag"
+                        class="shopBookItemFull__tag"
                         v-for="genre in book.genres"
                         :key="genre._id"
                         small
-                        @click="filterByGenre(genre)"
                     >
                         {{ genre.name }}
                     </v-chip>
                 </div>
-                <div class="shopBookItem__authors">
+                <div class="shopBookItemFull__authors">
                     <v-subheader>Authors</v-subheader>
                     <v-chip
-                        class="shopBookItem__tag"
+                        class="shopBookItemFull__tag"
                         v-for="author in book.authors"
                         :key="author._id"
                         small
                         dark
-                        @click="filterByAuthor(author)"
                     >
                         {{ author.name }}
                     </v-chip>
                 </div>
+                <div class="shopBookItemFull__description">
+                    <v-subheader>Description</v-subheader>
+                    {{ book.description }}
+                </div>
             </v-card-text>
         </div>
 
-        <div class="shopBookItem__actions">
+        <div class="shopBookItemFull__actions">
             <v-divider></v-divider>
 
             <v-card-actions>
-                <v-btn
-                    color="primary"
-                    :to="{ name: 'shopDetails', params: { id: book._id } }"
-                >
-                    Details
-                </v-btn>
                 <v-btn color="success">
                     <v-icon>shopping_cart</v-icon>
                 </v-btn>
@@ -85,20 +81,12 @@ export default {
         fullImagePath() {
             return `${config.rootUrl}/${this.book.imagePath}`;
         }
-    },
-    methods: {
-        filterByGenre(genre) {
-            this.$emit('setAndSubmitFilters', { rawGenres: [genre] });
-        },
-        filterByAuthor(author) {
-            this.$emit('setAndSubmitFilters', { rawAuthors: [author] });
-        }
     }
 };
 </script>
 
 <style lang="scss" scoped>
-.shopBookItem {
+.shopBookItemFull {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -119,18 +107,6 @@ export default {
         font-size: 1.45rem;
         font-weight: 300;
         text-decoration: line-through;
-    }
-}
-</style>
-
-<style lang="scss">
-.shopBookItem {
-    &__tag {
-        .v-chip {
-            &__content {
-                cursor: pointer;
-            }
-        }
     }
 }
 </style>

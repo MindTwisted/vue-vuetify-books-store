@@ -10,7 +10,7 @@
             <v-spacer></v-spacer>
             <v-toolbar-items>
                 <v-btn :to="{ name: 'home' }" exact flat>Home</v-btn>
-                <v-btn :to="{ name: 'shop' }" flat>Shop</v-btn>
+                <v-btn :to="{ name: 'shop' }" exact flat>Shop</v-btn>
             </v-toolbar-items>
         </v-toolbar>
 

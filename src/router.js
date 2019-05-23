@@ -20,6 +20,11 @@ export default new Router({
             component: () => import('./views/Shop.vue')
         },
         {
+            path: '/shop/:id',
+            name: 'shopDetails',
+            component: () => import('./views/ShopDetails.vue')
+        },
+        {
             path: '*',
             name: 'pageNotFound',
             component: PageNotFound

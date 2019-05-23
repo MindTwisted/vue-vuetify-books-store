@@ -2,15 +2,7 @@
     <div class="shop">
         <ShopFilter />
         <h1 class="display-3 font-weight-light">Shop</h1>
-        <v-breadcrumbs
-            large
-            light
-            :items="items"
-        >
-            <template v-slot:divider>
-                <v-icon>arrow_forward</v-icon>
-            </template>
-        </v-breadcrumbs>
+        <Breadcrumbs :items="breadcrumbs" />
         <ShopBookList />
         <div
             v-if="isAbleLoadMore"
@@ -26,6 +18,7 @@ import { createNamespacedHelpers } from 'vuex';
 import ShopBookList from '@components/ShopBookList';
 import ShopFilter from '@components/ShopFilter';
 import LoadMoreButton from '@components/LoadMoreButton';
+import Breadcrumbs from '@components/Breadcrumbs';
 
 const books = createNamespacedHelpers('books');
 
@@ -33,20 +26,21 @@ export default {
     components: {
         ShopBookList,
         ShopFilter,
-        LoadMoreButton
+        LoadMoreButton,
+        Breadcrumbs
     },
     data() {
         return {
-            items: [
+            breadcrumbs: [
                 {
                     text: 'Home',
                     disabled: false,
-                    to: '/'
+                    to: { name: 'home' },
+                    exact: true
                 },
                 {
                     text: 'Shop',
-                    disabled: true,
-                    to: 'shop'
+                    disabled: true
                 }
             ]
         };

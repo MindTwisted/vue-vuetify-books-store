@@ -18,5 +18,8 @@ export default {
             });
 
         return axios.get(URL);
+    },
+    fetchSingle(id) {
+        return axios.get(`${BOOKS_URL}/${id}`);
     }
 };
