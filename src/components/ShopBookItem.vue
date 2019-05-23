@@ -26,37 +26,29 @@
                     </div>
                 </div>
                 <div class="shopBookItem__genres">
-                    <v-item-group>
-                        <v-subheader>Genres</v-subheader>
-                        <v-item
-                            v-for="genre in book.genres"
-                            :key="genre._id"
-                        >
-                            <v-chip
-                                small
-                                @click="filterByGenre(genre)"
-                            >
-                                {{ genre.name }}
-                            </v-chip>
-                        </v-item>
-                    </v-item-group>
+                    <v-subheader>Genres</v-subheader>
+                    <v-chip
+                        class="shopBookItem__tag"
+                        v-for="genre in book.genres"
+                        :key="genre._id"
+                        small
+                        @click="filterByGenre(genre)"
+                    >
+                        {{ genre.name }}
+                    </v-chip>
                 </div>
                 <div class="shopBookItem__authors">
-                    <v-item-group>
-                        <v-subheader>Authors</v-subheader>
-                        <v-item
-                            v-for="author in book.authors"
-                            :key="author._id"
-                        >
-                            <v-chip
-                                small
-                                dark
-                                @click="filterByAuthor(author)"
-                            >
-                                {{ author.name }}
-                            </v-chip>
-                        </v-item>
-                    </v-item-group>
+                    <v-subheader>Authors</v-subheader>
+                    <v-chip
+                        class="shopBookItem__tag"
+                        v-for="author in book.authors"
+                        :key="author._id"
+                        small
+                        dark
+                        @click="filterByAuthor(author)"
+                    >
+                        {{ author.name }}
+                    </v-chip>
                 </div>
             </v-card-text>
         </div>
@@ -124,6 +116,18 @@ export default {
         font-size: 1.45rem;
         font-weight: 300;
         text-decoration: line-through;
+    }
+}
+</style>
+
+<style lang="scss">
+.shopBookItem {
+    &__tag {
+        .v-chip {
+            &__content {
+                cursor: pointer;
+            }
+        }
     }
 }
 </style>
