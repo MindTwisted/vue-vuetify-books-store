@@ -2,6 +2,7 @@
     <v-app>
         <Loader :active="isLoading" />
         <TheScrollTop />
+        <TheNotificationManager :message="notification.message" />
 
         <v-toolbar app>
             <v-toolbar-title class="headline text-uppercase">
@@ -26,21 +27,19 @@
 import { mapState } from 'vuex';
 import Loader from '@components/Loader';
 import TheScrollTop from '@components/TheScrollTop';
+import TheNotificationManager from '@components/TheNotificationManager';
 
 export default {
     name: 'App',
-    data() {
-        return {
-            //
-        };
-    },
     components: {
         Loader,
-        TheScrollTop
+        TheScrollTop,
+        TheNotificationManager
     },
     computed: {
         ...mapState([
-            'isLoading'
+            'isLoading',
+            'notification'
         ])
     }
 };

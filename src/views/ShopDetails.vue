@@ -6,6 +6,10 @@
         <Breadcrumbs :items="breadcrumbs" />
         <ShopBookItemFull :book="book" />
     </div>
+    <div
+        v-else
+        class="headline font-weight-thin text-xs-center mt-3"
+    >There are no book.</div>
 </template>
 
 <script>
@@ -33,16 +37,8 @@ export default {
         let book = this.getBookById(id);
 
         if (!book) {
-            try {
-                const response = await api.books.fetchSingle(id);
-                book = response.data.data.book;
-            } catch (e) {
-                console.log(e.message);
-            }
-        }
-
-        if (!book) {
-            this.$router.push({ name: 'shop' });
+            const response = await api.books.fetchSingle(id);
+            book = response && response.data.data.book;
         }
 
         this.book = book;

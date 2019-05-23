@@ -72,7 +72,7 @@ export default {
             commit(ACTIVATE_LOADER, null, { root: true });
 
             const response = await api.books.fetch(state.filters);
-            const newBooks = response.data.data.books;
+            const newBooks = (response && response.data.data.books) || [];
 
             commit(REPLACE_DATA, { books: newBooks });
             commit(SET_FILTERS, {
@@ -92,9 +92,9 @@ export default {
             commit(ACTIVATE_LOADER, null, { root: true });
 
             const response = await api.books.fetch({ ...state.filters, ...state.navigation });
-            const newBooks = response.data.data.books;
+            const newBooks = (response && response.data.data.books) || [];
 
-            if (newBooks.length < 50) {
+            if (newBooks.length < 50 && response) {
                 commit(SET_NAVIGATION, {
                     navigation: {
                         isFinished: true

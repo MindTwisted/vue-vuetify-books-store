@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { ACTIVATE_LOADER, DEACTIVATE_LOADER } from '@store/mutation-types';
+import { ACTIVATE_LOADER, DEACTIVATE_LOADER, SET_NOTIFICATION } from '@store/mutation-types';
 import books from '@store/modules/books';
 
 Vue.use(Vuex);
@@ -8,7 +8,10 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     strict: process.env.NODE_ENV !== 'production',
     state: {
-        isLoading: false
+        isLoading: false,
+        notification: {
+            message: {}
+        }
     },
     mutations: {
         [ACTIVATE_LOADER](state) {
@@ -16,6 +19,12 @@ export default new Vuex.Store({
         },
         [DEACTIVATE_LOADER](state) {
             state.isLoading = false;
+        },
+        [SET_NOTIFICATION](state, payload) {
+            state.notification = {
+                ...state.notification,
+                ...payload.notification
+            };
         }
     },
     actions: {
@@ -24,6 +33,9 @@ export default new Vuex.Store({
         },
         deactivateLoader({ commit }) {
             commit(DEACTIVATE_LOADER);
+        },
+        setNotification({ commit }, notification) {
+            commit(SET_NOTIFICATION, { notification });
         }
     },
     modules: {
