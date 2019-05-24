@@ -17,6 +17,8 @@ instance.interceptors.response.use(response => {
     const message = (data && data.text) || err.message;
 
     store.dispatch('setNotification', { message: { text: message, type: 'error' } });
+
+    return err.response;
 });
 
 export default instance;
