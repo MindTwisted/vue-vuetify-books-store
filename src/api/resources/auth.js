@@ -2,9 +2,13 @@ import axios from '@api/http/axios';
 import { AUTH_URL } from '@api/http/urls';
 
 export default {
-    register({ name = '', email = '', password = '' }) {
-        const URL = `${AUTH_URL}`;
+    register({ name, email, password } = {}) {
+        const data = {};
 
-        return axios.post(URL, { name, email, password });
+        if (name) data.name = name;
+        if (email) data.email = email;
+        if (password) data.password = password;
+
+        return axios.post(AUTH_URL, data);
     }
 };

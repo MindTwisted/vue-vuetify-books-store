@@ -2,22 +2,15 @@ import axios from '@api/http/axios';
 import { BOOKS_URL } from '@api/http/urls';
 
 export default {
-    fetch(filters) {
-        const allowedFilters = ['search', 'authors', 'genres', 'offset'];
-        const filterKeys = Object.keys(filters);
-        let URL = `${BOOKS_URL}?`;
+    fetch({ search, authors, genres, offset } = {}) {
+        const params = {};
 
-        filterKeys
-            .filter(item => allowedFilters.includes(item))
-            .map(key => {
-                const value = filters[key];
+        if (search) params.search = search;
+        if (authors) params.authors = authors;
+        if (genres) params.genres = genres;
+        if (offset) params.offset = offset;
 
-                if (value) {
-                    URL += `${key}=${value}&`;
-                }
-            });
-
-        return axios.get(URL);
+        return axios.get(BOOKS_URL, { params });
     },
     fetchSingle(id) {
         return axios.get(`${BOOKS_URL}/${id}`);
