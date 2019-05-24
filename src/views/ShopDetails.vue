@@ -1,15 +1,14 @@
 <template>
-    <div
-        class="shopDetails"
-        v-if="book"
-    >
+    <div v-if="book">
         <Breadcrumbs :items="breadcrumbs" />
         <ShopBookItemFull :book="book" />
     </div>
     <div
         v-else
         class="headline font-weight-thin text-xs-center mt-3"
-    >There are no book.</div>
+    >
+        There are no book.
+    </div>
 </template>
 
 <script>

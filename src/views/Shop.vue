@@ -1,5 +1,5 @@
 <template>
-    <div class="shop">
+    <div>
         <ShopFilter />
         <h1 class="display-3 font-weight-light">Shop</h1>
         <Breadcrumbs :items="breadcrumbs" />

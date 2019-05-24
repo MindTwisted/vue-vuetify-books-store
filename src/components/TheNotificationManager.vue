@@ -1,21 +1,19 @@
 <template>
-    <div class="theNotificationManager">
-        <v-snackbar
-            v-model="isVisible"
-            :bottom="true"
-            :right="true"
-            :color="color"
+    <v-snackbar
+        v-model="isVisible"
+        :bottom="true"
+        :right="true"
+        :color="color"
+    >
+        {{ message.text }}
+        <v-btn
+            dark
+            flat
+            @click="isVisible = false"
         >
-            {{ message.text }}
-            <v-btn
-                dark
-                flat
-                @click="isVisible = false"
-            >
-                Close
-            </v-btn>
-        </v-snackbar>
-    </div>
+            Close
+        </v-btn>
+    </v-snackbar>
 </template>
 
 <script>

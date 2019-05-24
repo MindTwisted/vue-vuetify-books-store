@@ -1,6 +1,6 @@
 <template>
     <v-card class="shopBookItem">
-        <div class="shopBookItem__content">
+        <div>
             <v-img
                 v-if="book.image"
                 :src="fullImagePath"
@@ -14,21 +14,20 @@
             <v-divider></v-divider>
 
             <v-card-text>
-                <div class="shopBookItem__priceWrapper">
-                    <div class="shopBookItem__price">
+                <div class="priceWrapper">
+                    <div class="price">
                         {{ book.price | priceWithDiscount(book.discount) | formatPrice }}
                     </div>
                     <div
                         v-if="book.discount > 0"
-                        class="shopBookItem__oldPrice grey--text"
+                        class="oldPrice grey--text"
                     >
                         {{ book.price | formatPrice }}
                     </div>
                 </div>
-                <div class="shopBookItem__genres">
+                <div>
                     <v-subheader>Genres</v-subheader>
                     <v-chip
-                        class="shopBookItem__tag"
                         v-for="genre in book.genres"
                         :key="genre._id"
                         small
@@ -37,10 +36,9 @@
                         {{ genre.name }}
                     </v-chip>
                 </div>
-                <div class="shopBookItem__authors">
+                <div>
                     <v-subheader>Authors</v-subheader>
                     <v-chip
-                        class="shopBookItem__tag"
                         v-for="author in book.authors"
                         :key="author._id"
                         small
@@ -53,7 +51,7 @@
             </v-card-text>
         </div>
 
-        <div class="shopBookItem__actions">
+        <div>
             <v-divider></v-divider>
 
             <v-card-actions>
@@ -102,34 +100,32 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
 
-    &__priceWrapper {
-        display: flex;
-        padding: 1rem;
-        align-items: baseline;
-    }
+.priceWrapper {
+    display: flex;
+    padding: 1rem;
+    align-items: baseline;
+}
 
-    &__price {
-        font-size: 2.75rem;
-        font-weight: 300;
-        margin-right: 0.25rem;
-    }
+.price {
+    font-size: 2.75rem;
+    font-weight: 300;
+    margin-right: 0.25rem;
+}
 
-    &__oldPrice {
-        font-size: 1.45rem;
-        font-weight: 300;
-        text-decoration: line-through;
-    }
+.oldPrice {
+    font-size: 1.45rem;
+    font-weight: 300;
+    text-decoration: line-through;
 }
 </style>
 
 <style lang="scss">
 .shopBookItem {
-    &__tag {
-        .v-chip {
-            &__content {
-                cursor: pointer;
-            }
+    .v-chip {
+        &__content {
+            cursor: pointer;
         }
     }
 }

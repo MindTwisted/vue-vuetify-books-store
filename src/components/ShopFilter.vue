@@ -1,5 +1,5 @@
 <template>
-    <div class="shopFilter">
+    <div>
         <ShopFilterOpenButton
             :isFiltersApplied="filters.isFiltersApplied"
             @showPanel="isVisible = true"

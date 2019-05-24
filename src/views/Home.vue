@@ -1,5 +1,5 @@
 <template>
-    <div class="home">
+    <div>
         <v-card>
             <v-responsive min-height="500">
                 <v-container fill-height>
@@ -28,7 +28,3 @@
         </v-card>
     </div>
 </template>
-
-<script>
-export default {};
-</script>

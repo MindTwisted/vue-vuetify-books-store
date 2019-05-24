@@ -10,7 +10,7 @@
         </v-btn>
         <v-badge
             v-show="isFiltersApplied"
-            class="shopFilterOpenButton__isAppliedIcon"
+            class="isAppliedIcon"
             color="green"
         >
             <template v-slot:badge>
@@ -40,11 +40,11 @@ export default {
     position: fixed;
     right: 1rem;
     z-index: 4;
+}
 
-    &__isAppliedIcon {
-        position: absolute;
-        right: 25px;
-        top: 15px;
-    }
+.isAppliedIcon {
+    position: absolute;
+    right: 25px;
+    top: 15px;
 }
 </style>

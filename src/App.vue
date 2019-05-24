@@ -30,7 +30,6 @@ import TheScrollTop from '@components/TheScrollTop';
 import TheNotificationManager from '@components/TheNotificationManager';
 
 export default {
-    name: 'App',
     components: {
         Loader,
         TheScrollTop,

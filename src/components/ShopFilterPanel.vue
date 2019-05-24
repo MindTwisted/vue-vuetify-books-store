@@ -1,5 +1,5 @@
 <template>
-    <div class="shopFilterPanel">
+    <div>
         <v-toolbar flat>
             <v-list>
                 <v-list-tile>
@@ -13,7 +13,7 @@
         <v-divider></v-divider>
 
         <form
-            class="shopFilterPanel__form"
+            class="filtersForm"
             @submit.prevent="submitFilters">
             <v-text-field
                 v-model="searchFilter"
@@ -32,7 +32,7 @@
                 :rawData="rawGenres"
             />
 
-            <div class="shopFilterPanel__formButtons">
+            <div class="formButtons">
                 <v-btn
                     block
                     color="success"
@@ -90,17 +90,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.shopFilterPanel {
-    &__form {
-        padding: 0.75rem;
-    }
+.filtersForm {
+    padding: 0.75rem;
+}
 
-    &__formButtons {
-        display: flex;
+.formButtons {
+    display: flex;
 
-        & > * {
-            margin: 0 0.35rem;
-        }
+    & > * {
+        margin: 0 0.35rem;
     }
 }
 </style>
