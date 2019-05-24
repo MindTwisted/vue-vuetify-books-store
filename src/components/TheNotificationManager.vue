@@ -1,18 +1,11 @@
 <template>
     <v-snackbar
         v-model="isVisible"
-        :bottom="true"
-        :right="true"
+        top
+        center
         :color="color"
     >
         {{ message.text }}
-        <v-btn
-            dark
-            flat
-            @click="isVisible = false"
-        >
-            Close
-        </v-btn>
     </v-snackbar>
 </template>
 
