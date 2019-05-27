@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { ACTIVATE_LOADER, DEACTIVATE_LOADER, SET_NOTIFICATION } from '@store/mutation-types';
+import { ACTIVATE_LOADER, DEACTIVATE_LOADER, SET_NOTIFICATION, REMOVE_NOTIFICATION } from '@store/mutation-types';
 import books from '@store/modules/books';
 
 Vue.use(Vuex);
@@ -10,7 +10,7 @@ export default new Vuex.Store({
     state: {
         isLoading: false,
         notification: {
-            message: {}
+            messages: []
         }
     },
     mutations: {
@@ -21,10 +21,13 @@ export default new Vuex.Store({
             state.isLoading = false;
         },
         [SET_NOTIFICATION](state, payload) {
-            state.notification = {
-                ...state.notification,
-                ...payload.notification
-            };
+            state.notification.messages = [
+                ...state.notification.messages,
+                payload.message
+            ];
+        },
+        [REMOVE_NOTIFICATION](state, payload) {
+            state.notification.messages = state.notification.messages.filter(message => message.id !== payload.id);
         }
     },
     actions: {
@@ -34,8 +37,16 @@ export default new Vuex.Store({
         deactivateLoader({ commit }) {
             commit(DEACTIVATE_LOADER);
         },
-        setNotification({ commit }, notification) {
-            commit(SET_NOTIFICATION, { notification });
+        setNotification({ commit }, message) {
+            const id = `f${(Date.now()).toString(16)}`;
+
+            message.id = id;
+
+            commit(SET_NOTIFICATION, { message });
+
+            setTimeout(() => {
+                commit(REMOVE_NOTIFICATION, { id });
+            }, 2000);
         }
     },
     modules: {

@@ -16,7 +16,7 @@ instance.interceptors.response.use(response => {
     const data = err.response && err.response.data;
     const message = (data && data.text) || err.message;
 
-    store.dispatch('setNotification', { message: { text: message, type: 'error' } });
+    store.dispatch('setNotification', { text: message, type: 'error' });
 
     return err.response;
 });

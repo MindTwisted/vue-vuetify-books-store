@@ -158,7 +158,7 @@ export default {
 
             if (!errors) {
                 this.dialog = false;
-                this.setNotification({ message: { text: data.text, type: 'success' } });
+                this.setNotification({ text: data.text, type: 'success' });
             }
         }
     },

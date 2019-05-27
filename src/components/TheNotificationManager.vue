@@ -1,43 +1,36 @@
 <template>
-    <v-snackbar
-        v-model="isVisible"
-        top
-        center
-        :color="color"
-    >
-        {{ message.text }}
-    </v-snackbar>
+    <div class="theNotificationManager">
+        <v-scale-transition group>
+            <v-alert
+                v-for="message in messages"
+                :key="message.id"
+                :value="true"
+                :type="message.type"
+            >
+                {{ message.text }}
+            </v-alert>
+        </v-scale-transition>
+    </div>
 </template>
 
 <script>
 export default {
     props: {
-        message: {
-            type: Object,
+        messages: {
+            type: Array,
             required: true
-        }
-    },
-    data() {
-        return {
-            isVisible: false
-        };
-    },
-    watch: {
-        message(value) {
-            this.isVisible = Boolean(value.text);
-        }
-    },
-    computed: {
-        color() {
-            switch (this.message.type) {
-                case 'success':
-                    return 'green darken-2';
-                case 'error':
-                    return 'red darken-2';
-                default:
-                    return 'grey darken-4';
-            }
         }
     }
 };
 </script>
+
+<style lang="scss" scoped>
+.theNotificationManager {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    max-width: 350px;
+    width: 100%;
+    z-index: 202;
+}
+</style>

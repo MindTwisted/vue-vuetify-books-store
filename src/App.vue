@@ -2,7 +2,7 @@
     <v-app>
         <Loader :active="isLoading" />
         <TheScrollTop />
-        <TheNotificationManager :message="notification.message" />
+        <TheNotificationManager :messages="notification.messages" />
 
         <TheNavbar />
         <v-content>
