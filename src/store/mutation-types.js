@@ -8,3 +8,5 @@ export const REPLACE_DATA = 'REPLACE_DATA';
 export const APPEND_DATA = 'APPEND_DATA';
 export const SET_NOTIFICATION = 'SET_NOTIFICATION';
 export const REMOVE_NOTIFICATION = 'REMOVE_NOTIFICATION';
+export const SET_AUTH = 'SET_AUTH';
+export const REMOVE_AUTH = 'REMOVE_AUTH';

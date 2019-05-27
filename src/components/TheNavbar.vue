@@ -25,7 +25,7 @@
                         flat
                         v-on="on"
                     >
-                        <v-avatar>
+                        <v-avatar v-if="!isLoggedIn">
                             <v-icon
                                 dark
                                 large
@@ -33,15 +33,32 @@
                                 account_circle
                             </v-icon>
                         </v-avatar>
+                        <v-avatar v-else color="teal">
+                            <span class="white--text headline">
+                                {{ auth.name | avatarName }}
+                            </span>
+                        </v-avatar>
                     </v-btn>
                 </template>
                 <v-list>
-                    <v-list-tile>
-                        <v-list-tile-title>Login</v-list-tile-title>
-                    </v-list-tile>
-                    <v-list-tile>
-                        <TheNavbarRegisterModal />
-                    </v-list-tile>
+                    <template v-if="!isLoggedIn">
+                        <v-list-tile>
+                            <TheNavbarLoginModal />
+                        </v-list-tile>
+                        <v-list-tile>
+                            <TheNavbarRegisterModal />
+                        </v-list-tile>
+                    </template>
+                    <template v-else>
+                        <v-list-tile>
+                            <v-btn
+                                flat
+                                @click="logoutUser"
+                            >
+                                Logout
+                            </v-btn>
+                        </v-list-tile>
+                    </template>
                 </v-list>
             </v-menu>
         </v-toolbar-items>
@@ -49,11 +66,27 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapActions } from 'vuex';
 import TheNavbarRegisterModal from '@components/TheNavbarRegisterModal';
+import TheNavbarLoginModal from '@components/TheNavbarLoginModal';
 
 export default {
     components: {
-        TheNavbarRegisterModal
+        TheNavbarRegisterModal,
+        TheNavbarLoginModal
+    },
+    computed: {
+        ...mapState([
+            'auth'
+        ]),
+        ...mapGetters([
+            'isLoggedIn'
+        ])
+    },
+    methods: {
+        ...mapActions([
+            'logoutUser'
+        ])
     }
 };
 </script>
