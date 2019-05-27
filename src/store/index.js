@@ -98,6 +98,33 @@ export default new Vuex.Store({
 
             commit(REMOVE_AUTH);
         },
+        async registerUser({ commit, dispatch }, userData) {
+            commit(ACTIVATE_LOADER);
+
+            const response = await api.auth.register(userData);
+
+            if (!response) {
+                commit(DEACTIVATE_LOADER);
+
+                return;
+            }
+
+            if (response.data.status !== 'success') {
+                commit(DEACTIVATE_LOADER);
+
+                return response;
+            }
+
+            const data = response.data;
+
+            dispatch('setNotification', { text: data.text, type: 'success' });
+
+            await dispatch('loginUser', userData);
+
+            commit(DEACTIVATE_LOADER);
+
+            return response;
+        },
         async loginUser({ commit, dispatch }, credentials) {
             commit(ACTIVATE_LOADER);
 

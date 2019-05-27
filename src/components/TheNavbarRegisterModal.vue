@@ -80,7 +80,6 @@
 </template>
 
 <script>
-import api from '@api';
 import { mapActions } from 'vuex';
 
 const initialState = {
@@ -129,18 +128,19 @@ export default {
     },
     methods: {
         ...mapActions([
-            'activateLoader',
-            'deactivateLoader',
-            'setNotification'
+            'registerUser'
         ]),
         async onSave() {
-            this.activateLoader();
-
-            const response = await api.auth.register({
+            const response = await this.registerUser({
                 name: this.name.value,
                 email: this.email.value,
                 password: this.password.value
             });
+
+            if (!response) {
+                return;
+            }
+
             const data = response.data;
             const errors = data.data.errors;
             const nameError = errors && errors.name;
@@ -154,11 +154,8 @@ export default {
             this.email.isSuccess = !emailError;
             this.password.isSuccess = !passwordError;
 
-            this.deactivateLoader();
-
             if (!errors) {
                 this.dialog = false;
-                this.setNotification({ text: data.text, type: 'success' });
             }
         }
     },
