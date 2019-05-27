@@ -3,6 +3,7 @@
         v-model="dialog"
         persistent
         max-width="800px"
+        @keydown.enter="onSave"
     >
         <template v-slot:activator="{ on }">
             <v-btn
