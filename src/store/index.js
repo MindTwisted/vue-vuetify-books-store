@@ -6,7 +6,9 @@ import {
     SET_NOTIFICATION,
     REMOVE_NOTIFICATION,
     SET_AUTH,
-    REMOVE_AUTH
+    REMOVE_AUTH,
+    SET_THEME,
+    REMOVE_THEME
 } from '@store/mutation-types';
 import books from '@store/modules/books';
 import api from '@api';
@@ -24,6 +26,19 @@ const initialState = {
         name: '',
         email: '',
         role: ''
+    },
+    appearance: {
+        theme: 'light',
+        allowedThemes: [
+            {
+                value: 'light',
+                text: 'Light'
+            },
+            {
+                value: 'dark',
+                text: 'Dark'
+            }
+        ]
     }
 };
 
@@ -37,6 +52,10 @@ export default new Vuex.Store({
             name: localStorage.getItem('name') || '',
             email: localStorage.getItem('email') || '',
             role: localStorage.getItem('role') || ''
+        },
+        appearance: {
+            ...initialState.appearance,
+            theme: localStorage.getItem('theme') || 'light'
         }
     },
     mutations: {
@@ -60,6 +79,12 @@ export default new Vuex.Store({
         },
         [REMOVE_AUTH](state) {
             state.auth = { ...initialState.auth };
+        },
+        [SET_THEME](state, payload) {
+            state.appearance.theme = payload.theme;
+        },
+        [REMOVE_THEME](state) {
+            state.appearance = { ...initialState.appearance };
         }
     },
     actions: {
@@ -153,6 +178,17 @@ export default new Vuex.Store({
         },
         logoutUser({ dispatch }) {
             dispatch('removeAuth');
+            dispatch('removeTheme');
+        },
+        setTheme({ commit }, { theme }) {
+            localStorage.setItem('theme', theme);
+
+            commit(SET_THEME, { theme });
+        },
+        removeTheme({ commit }) {
+            localStorage.removeItem('theme');
+
+            commit(REMOVE_THEME);
         }
     },
     getters: {

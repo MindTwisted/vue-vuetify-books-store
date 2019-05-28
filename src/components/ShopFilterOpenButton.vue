@@ -2,7 +2,6 @@
     <div class="shopFilterOpenButton">
         <v-btn
             color="orange"
-            dark
             fab
             @click="$emit('showPanel')"
         >
@@ -15,7 +14,6 @@
         >
             <template v-slot:badge>
                 <v-icon
-                    dark
                     small
                 >done</v-icon>
             </template>

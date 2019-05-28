@@ -42,7 +42,6 @@
                         v-for="author in book.authors"
                         :key="author._id"
                         small
-                        dark
                         @click="filterByAuthor(author)"
                     >
                         {{ author.name }}

@@ -26,12 +26,7 @@
                         v-on="on"
                     >
                         <v-avatar v-if="!isLoggedIn">
-                            <v-icon
-                                dark
-                                large
-                            >
-                                account_circle
-                            </v-icon>
+                            <v-icon large>account_circle</v-icon>
                         </v-avatar>
                         <v-avatar v-else color="teal">
                             <span class="white--text headline">
@@ -51,11 +46,14 @@
                     </template>
                     <template v-else>
                         <v-list-tile>
+                            <TheNavbarSettingsModal />
+                        </v-list-tile>
+                        <v-list-tile>
                             <v-btn
                                 flat
-                                @click="logoutUser"
+                                @click="onLogout"
                             >
-                                Logout
+                                <v-icon>power_settings_new</v-icon> Logout
                             </v-btn>
                         </v-list-tile>
                     </template>
@@ -69,11 +67,13 @@
 import { mapState, mapGetters, mapActions } from 'vuex';
 import TheNavbarRegisterModal from '@components/TheNavbarRegisterModal';
 import TheNavbarLoginModal from '@components/TheNavbarLoginModal';
+import TheNavbarSettingsModal from '@components/TheNavbarSettingsModal';
 
 export default {
     components: {
         TheNavbarRegisterModal,
-        TheNavbarLoginModal
+        TheNavbarLoginModal,
+        TheNavbarSettingsModal
     },
     computed: {
         ...mapState([
@@ -86,7 +86,11 @@ export default {
     methods: {
         ...mapActions([
             'logoutUser'
-        ])
+        ]),
+        onLogout() {
+            this.$router.push({ name: 'home' });
+            this.logoutUser();
+        }
     }
 };
 </script>

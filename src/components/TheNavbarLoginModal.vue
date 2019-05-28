@@ -10,7 +10,7 @@
                 v-on="on"
                 flat
             >
-                Login
+                <v-icon>perm_identity</v-icon> Login
             </v-btn>
         </template>
         <v-card>
@@ -46,7 +46,6 @@
                 <v-spacer></v-spacer>
                 <v-btn
                     color="green darken-1"
-                    dark
                     @click="onSave"
                 >
                     Save

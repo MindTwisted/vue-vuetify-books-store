@@ -3,7 +3,6 @@
         <v-btn
             v-scroll="onScroll"
             v-show="isVisible"
-            dark
             fab
             fixed
             right

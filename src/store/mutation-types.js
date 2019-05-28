@@ -10,3 +10,5 @@ export const SET_NOTIFICATION = 'SET_NOTIFICATION';
 export const REMOVE_NOTIFICATION = 'REMOVE_NOTIFICATION';
 export const SET_AUTH = 'SET_AUTH';
 export const REMOVE_AUTH = 'REMOVE_AUTH';
+export const SET_THEME = 'SET_THEME';
+export const REMOVE_THEME = 'REMOVE_THEME';

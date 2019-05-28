@@ -10,7 +10,7 @@
                 v-on="on"
                 flat
             >
-                Register
+                <v-icon>person_add</v-icon> Register
             </v-btn>
         </template>
         <v-card>
@@ -63,7 +63,6 @@
                 <v-spacer></v-spacer>
                 <v-btn
                     color="green darken-1"
-                    dark
                     @click="onSave"
                 >
                     Save

@@ -1,7 +1,6 @@
 <template>
     <v-breadcrumbs
         large
-        light
         :items="items"
     >
         <template v-slot:divider>

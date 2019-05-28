@@ -41,7 +41,6 @@
                         v-for="author in book.authors"
                         :key="author._id"
                         small
-                        dark
                     >
                         {{ author.name }}
                     </v-chip>

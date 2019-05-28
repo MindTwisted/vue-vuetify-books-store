@@ -1,5 +1,5 @@
 <template>
-    <v-app>
+    <v-app v-bind="theme">
         <Loader :active="isLoading" />
         <TheScrollTop />
         <TheNotificationManager :messages="notification.messages" />
@@ -30,8 +30,14 @@ export default {
     computed: {
         ...mapState([
             'isLoading',
-            'notification'
-        ])
+            'notification',
+            'appearance'
+        ]),
+        theme() {
+            return {
+                [this.appearance.theme]: true
+            };
+        }
     }
 };
 </script>
