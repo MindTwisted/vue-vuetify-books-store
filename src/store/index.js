@@ -6,12 +6,15 @@ import {
     SET_NOTIFICATION,
     REMOVE_NOTIFICATION,
     SET_AUTH,
+    UPDATE_AUTH,
     REMOVE_AUTH,
     SET_THEME,
     REMOVE_THEME
 } from '@store/mutation-types';
 import books from '@store/modules/books';
+import users from '@store/modules/users';
 import api from '@api';
+import router from '@root/router';
 
 Vue.use(Vuex);
 
@@ -77,6 +80,12 @@ export default new Vuex.Store({
         [SET_AUTH](state, payload) {
             state.auth = payload.auth;
         },
+        [UPDATE_AUTH](state, payload) {
+            state.auth = {
+                ...state.auth,
+                ...payload.auth
+            };
+        },
         [REMOVE_AUTH](state) {
             state.auth = { ...initialState.auth };
         },
@@ -113,6 +122,12 @@ export default new Vuex.Store({
             localStorage.setItem('role', data.role);
 
             commit(SET_AUTH, { auth: data });
+        },
+        updateAuth({ commit }, data) {
+            localStorage.setItem('name', data.name);
+            localStorage.setItem('email', data.email);
+
+            commit(UPDATE_AUTH, { auth: data });
         },
         removeAuth({ commit }) {
             localStorage.removeItem('id');
@@ -179,6 +194,8 @@ export default new Vuex.Store({
         logoutUser({ dispatch }) {
             dispatch('removeAuth');
             dispatch('removeTheme');
+
+            router.push({ name: 'home' });
         },
         setTheme({ commit }, { theme }) {
             localStorage.setItem('theme', theme);
@@ -201,6 +218,7 @@ export default new Vuex.Store({
         }
     },
     modules: {
-        books
+        books,
+        users
     }
 });

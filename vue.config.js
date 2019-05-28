@@ -7,6 +7,7 @@ module.exports = {
         ],
         resolve: {
             alias: {
+                '@root': path.join(__dirname, 'src'),
                 '@api': path.join(__dirname, 'src/api'),
                 '@components': path.join(__dirname, 'src/components'),
                 '@store': path.join(__dirname, 'src/store'),

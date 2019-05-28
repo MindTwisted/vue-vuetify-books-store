@@ -7,5 +7,5 @@ export const formatPrice = (price) => {
 };
 
 export const avatarName = (name) => {
-    return name.split(' ').map(word => word[0].toUpperCase()).join('');
+    return name.split(' ').map(word => word[0].toUpperCase()).slice(0, 2).join('');
 };

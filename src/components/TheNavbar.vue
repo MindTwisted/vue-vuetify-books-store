@@ -51,7 +51,7 @@
                         <v-list-tile>
                             <v-btn
                                 flat
-                                @click="onLogout"
+                                @click="logoutUser"
                             >
                                 <v-icon>power_settings_new</v-icon> Logout
                             </v-btn>
@@ -86,11 +86,7 @@ export default {
     methods: {
         ...mapActions([
             'logoutUser'
-        ]),
-        onLogout() {
-            this.$router.push({ name: 'home' });
-            this.logoutUser();
-        }
+        ])
     }
 };
 </script>

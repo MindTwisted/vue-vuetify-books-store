@@ -25,6 +25,7 @@
             </v-toolbar>
             <v-expansion-panel v-model="openedPanel">
                 <TheNavbarSettingsModalAppearance />
+                <TheNavbarSettingsModalAccount :dialog="dialog" />
             </v-expansion-panel>
         </v-card>
     </v-dialog>
@@ -32,10 +33,12 @@
 
 <script>
 import TheNavbarSettingsModalAppearance from '@components/TheNavbarSettingsModalAppearance';
+import TheNavbarSettingsModalAccount from '@components/TheNavbarSettingsModalAccount';
 
 export default {
     components: {
-        TheNavbarSettingsModalAppearance
+        TheNavbarSettingsModalAppearance,
+        TheNavbarSettingsModalAccount
     },
     data() {
         return {
