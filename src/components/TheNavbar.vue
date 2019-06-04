@@ -19,6 +19,24 @@
             >
                 Shop
             </v-btn>
+            <v-btn
+                v-if="isLoggedIn"
+                :to="{ name: 'cart' }"
+                exact
+                flat
+            >
+                <v-badge right>
+                    <template v-slot:badge>
+                        <span>{{ cartItemsCount }}</span>
+                    </template>
+                    <v-icon
+                        large
+                        color="grey lighten-1"
+                    >
+                        shopping_cart
+                    </v-icon>
+                </v-badge>
+            </v-btn>
             <v-menu offset-y>
                 <template v-slot:activator="{ on }">
                     <v-btn
@@ -64,10 +82,12 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex';
+import { mapState, mapGetters, mapActions, createNamespacedHelpers } from 'vuex';
 import TheNavbarRegisterModal from '@components/TheNavbarRegisterModal';
 import TheNavbarLoginModal from '@components/TheNavbarLoginModal';
 import TheNavbarSettingsModal from '@components/TheNavbarSettingsModal';
+
+const cart = createNamespacedHelpers('cart');
 
 export default {
     components: {
@@ -81,6 +101,9 @@ export default {
         ]),
         ...mapGetters([
             'isLoggedIn'
+        ]),
+        ...cart.mapGetters([
+            'cartItemsCount'
         ])
     },
     methods: {

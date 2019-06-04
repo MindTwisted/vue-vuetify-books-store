@@ -13,6 +13,7 @@ import {
 } from '@store/mutation-types';
 import books from '@store/modules/books';
 import users from '@store/modules/users';
+import cart from '@store/modules/cart';
 import api from '@api';
 import router from '@root/router';
 
@@ -187,6 +188,7 @@ export default new Vuex.Store({
                 email: data.data.user.email,
                 role: data.data.user.role
             });
+            await dispatch('cart/fetchCart');
             commit(DEACTIVATE_LOADER);
 
             return response;
@@ -194,6 +196,7 @@ export default new Vuex.Store({
         logoutUser({ dispatch }) {
             dispatch('removeAuth');
             dispatch('removeTheme');
+            dispatch('cart/cleanCart');
 
             router.push({ name: 'home' });
         },
@@ -219,6 +222,7 @@ export default new Vuex.Store({
     },
     modules: {
         books,
-        users
+        users,
+        cart
     }
 });

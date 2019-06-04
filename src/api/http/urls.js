@@ -3,3 +3,4 @@ export const AUTHORS_URL = 'authors';
 export const GENRES_URL = 'genres';
 export const AUTH_URL = 'auth';
 export const USERS_URL = 'users';
+export const CART_URL = 'cart';

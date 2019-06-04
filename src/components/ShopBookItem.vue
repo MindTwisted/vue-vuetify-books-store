@@ -60,16 +60,45 @@
                 >
                     Details
                 </v-btn>
-                <v-btn color="success">
-                    <v-icon>shopping_cart</v-icon>
-                </v-btn>
+                <template v-if="isLoggedIn">
+                    <v-btn
+                        v-if="!isInCart(book._id)"
+                        @click="handleAddToCart"
+                        color="success"
+                        :loading="isLoading"
+                    >
+                        <v-icon>shopping_cart</v-icon>
+                    </v-btn>
+                    <v-btn
+                        v-else
+                        disabled
+                    >
+                        in cart
+                    </v-btn>
+                </template>
+                <template v-else>
+                    <v-tooltip top>
+                        <template v-slot:activator="{ on }">
+                            <v-btn
+                                v-on="on"
+                                color="success"
+                            >
+                                <v-icon>shopping_cart</v-icon>
+                            </v-btn>
+                        </template>
+                        <span>You need to sign-in to make a purchase.</span>
+                    </v-tooltip>
+                </template>
             </v-card-actions>
         </div>
     </v-card>
 </template>
 
 <script>
+import { mapGetters, createNamespacedHelpers } from 'vuex';
 import config from '@config';
+
+const cart = createNamespacedHelpers('cart');
 
 export default {
     props: {
@@ -78,17 +107,38 @@ export default {
             required: true
         }
     },
+    data() {
+        return {
+            isLoading: false
+        };
+    },
     computed: {
+        ...mapGetters([
+            'isLoggedIn'
+        ]),
+        ...cart.mapGetters([
+            'isInCart'
+        ]),
         fullImagePath() {
             return `${config.rootUrl}/${this.book.imagePath}`;
         }
     },
     methods: {
+        ...cart.mapActions([
+            'addToCart'
+        ]),
         filterByGenre(genre) {
             this.$emit('setAndSubmitFilters', { rawGenres: [genre] });
         },
         filterByAuthor(author) {
             this.$emit('setAndSubmitFilters', { rawAuthors: [author] });
+        },
+        async handleAddToCart() {
+            this.isLoading = true;
+
+            await this.addToCart({ count: 1, book: this.book._id });
+
+            this.isLoading = false;
         }
     }
 };

@@ -14,11 +14,13 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters, createNamespacedHelpers } from 'vuex';
 import Loader from '@components/Loader';
 import TheScrollTop from '@components/TheScrollTop';
 import TheNotificationManager from '@components/TheNotificationManager';
 import TheNavbar from '@components/TheNavbar';
+
+const cart = createNamespacedHelpers('cart');
 
 export default {
     components: {
@@ -27,17 +29,30 @@ export default {
         TheNotificationManager,
         TheNavbar
     },
+    created() {
+        if (this.isLoggedIn) {
+            this.fetchCart();
+        }
+    },
     computed: {
         ...mapState([
             'isLoading',
             'notification',
             'appearance'
         ]),
+        ...mapGetters([
+            'isLoggedIn'
+        ]),
         theme() {
             return {
                 [this.appearance.theme]: true
             };
         }
+    },
+    methods: {
+        ...cart.mapActions([
+            'fetchCart'
+        ])
     }
 };
 </script>
