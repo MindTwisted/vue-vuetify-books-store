@@ -6,10 +6,10 @@ import users from '@api/resources/users';
 import cart from '@api/resources/cart';
 
 export default {
-    books,
-    authors,
-    genres,
-    auth,
-    users,
-    cart
+  books,
+  authors,
+  genres,
+  auth,
+  users,
+  cart
 };

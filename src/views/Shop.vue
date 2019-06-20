@@ -23,43 +23,43 @@ import Breadcrumbs from '@components/Breadcrumbs';
 const books = createNamespacedHelpers('books');
 
 export default {
-    components: {
-        ShopBookList,
-        ShopFilter,
-        LoadMoreButton,
-        Breadcrumbs
-    },
-    data() {
-        return {
-            breadcrumbs: [
-                {
-                    text: 'Home',
-                    disabled: false,
-                    to: { name: 'home' },
-                    exact: true
-                },
-                {
-                    text: 'Shop',
-                    disabled: true
-                }
-            ]
-        };
-    },
-    created() {
-        this.resetFilters();
-        this.fetchReplaceBooks();
-    },
-    computed: {
-        ...books.mapGetters([
-            'isAbleLoadMore'
-        ])
-    },
-    methods: {
-        ...books.mapActions([
-            'fetchReplaceBooks',
-            'fetchAppendBooks',
-            'resetFilters'
-        ])
-    }
+  components: {
+    ShopBookList,
+    ShopFilter,
+    LoadMoreButton,
+    Breadcrumbs
+  },
+  data() {
+    return {
+      breadcrumbs: [
+        {
+          text: 'Home',
+          disabled: false,
+          to: { name: 'home' },
+          exact: true
+        },
+        {
+          text: 'Shop',
+          disabled: true
+        }
+      ]
+    };
+  },
+  created() {
+    this.resetFilters();
+    this.fetchReplaceBooks();
+  },
+  computed: {
+    ...books.mapGetters([
+      'isAbleLoadMore'
+    ])
+  },
+  methods: {
+    ...books.mapActions([
+      'fetchReplaceBooks',
+      'fetchAppendBooks',
+      'resetFilters'
+    ])
+  }
 };
 </script>

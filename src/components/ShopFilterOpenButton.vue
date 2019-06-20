@@ -1,34 +1,32 @@
 <template>
-    <div class="shopFilterOpenButton">
-        <v-btn
-            color="orange"
-            fab
-            @click="$emit('showPanel')"
-        >
-            <v-icon>filter_list</v-icon>
-        </v-btn>
-        <v-badge
-            v-show="isFiltersApplied"
-            class="isAppliedIcon"
-            color="green"
-        >
-            <template v-slot:badge>
-                <v-icon
-                    small
-                >done</v-icon>
-            </template>
-        </v-badge>
-    </div>
+  <div class="shopFilterOpenButton">
+    <v-btn
+      color="orange"
+      fab
+      @click="$emit('showPanel')"
+    >
+      <v-icon>filter_list</v-icon>
+    </v-btn>
+    <v-badge
+      v-show="isFiltersApplied"
+      class="isAppliedIcon"
+      color="green"
+    >
+      <template v-slot:badge>
+        <v-icon small>done</v-icon>
+      </template>
+    </v-badge>
+  </div>
 </template>
 
 <script>
 export default {
-    props: {
-        isFiltersApplied: {
-            type: Boolean,
-            required: true
-        }
+  props: {
+    isFiltersApplied: {
+      type: Boolean,
+      required: true
     }
+  }
 };
 </script>
 

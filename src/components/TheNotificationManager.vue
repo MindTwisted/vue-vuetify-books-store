@@ -1,26 +1,26 @@
 <template>
-    <div class="theNotificationManager">
-        <v-scale-transition group>
-            <v-alert
-                v-for="message in messages"
-                :key="message.id"
-                :value="true"
-                :type="message.type"
-            >
-                {{ message.text }}
-            </v-alert>
-        </v-scale-transition>
-    </div>
+  <div class="theNotificationManager">
+    <v-scale-transition group>
+      <v-alert
+        v-for="message in messages"
+        :key="message.id"
+        :value="true"
+        :type="message.type"
+      >
+        {{ message.text }}
+      </v-alert>
+    </v-scale-transition>
+  </div>
 </template>
 
 <script>
 export default {
-    props: {
-        messages: {
-            type: Array,
-            required: true
-        }
+  props: {
+    messages: {
+      type: Array,
+      required: true
     }
+  }
 };
 </script>
 

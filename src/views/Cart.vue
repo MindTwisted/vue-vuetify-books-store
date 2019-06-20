@@ -9,30 +9,30 @@
 import Breadcrumbs from '@components/Breadcrumbs';
 
 export default {
-    components: {
-        Breadcrumbs
-    },
-    data() {
-        return {
-            breadcrumbs: [
-                {
-                    text: 'Home',
-                    disabled: false,
-                    to: { name: 'home' },
-                    exact: true
-                },
-                {
-                    text: 'Shop',
-                    disabled: false,
-                    to: { name: 'shop' },
-                    exact: true
-                },
-                {
-                    text: 'Cart',
-                    disabled: true
-                }
-            ]
-        };
-    }
+  components: {
+    Breadcrumbs
+  },
+  data() {
+    return {
+      breadcrumbs: [
+        {
+          text: 'Home',
+          disabled: false,
+          to: { name: 'home' },
+          exact: true
+        },
+        {
+          text: 'Shop',
+          disabled: false,
+          to: { name: 'shop' },
+          exact: true
+        },
+        {
+          text: 'Cart',
+          disabled: true
+        }
+      ]
+    };
+  }
 };
 </script>

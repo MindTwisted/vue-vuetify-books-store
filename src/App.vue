@@ -1,16 +1,16 @@
 <template>
-    <v-app v-bind="theme">
-        <Loader :active="isLoading" />
-        <TheScrollTop />
-        <TheNotificationManager :messages="notification.messages" />
+  <v-app v-bind="theme">
+    <Loader :active="isLoading" />
+    <TheScrollTop />
+    <TheNotificationManager :messages="notification.messages" />
 
-        <TheNavbar />
-        <v-content>
-            <v-container fluid>
-                <router-view></router-view>
-            </v-container>
-        </v-content>
-    </v-app>
+    <TheNavbar />
+    <v-content>
+      <v-container fluid>
+        <router-view></router-view>
+      </v-container>
+    </v-content>
+  </v-app>
 </template>
 
 <script>
@@ -23,36 +23,36 @@ import TheNavbar from '@components/TheNavbar';
 const cart = createNamespacedHelpers('cart');
 
 export default {
-    components: {
-        Loader,
-        TheScrollTop,
-        TheNotificationManager,
-        TheNavbar
-    },
-    created() {
-        if (this.isLoggedIn) {
-            this.fetchCart();
-        }
-    },
-    computed: {
-        ...mapState([
-            'isLoading',
-            'notification',
-            'appearance'
-        ]),
-        ...mapGetters([
-            'isLoggedIn'
-        ]),
-        theme() {
-            return {
-                [this.appearance.theme]: true
-            };
-        }
-    },
-    methods: {
-        ...cart.mapActions([
-            'fetchCart'
-        ])
+  components: {
+    Loader,
+    TheScrollTop,
+    TheNotificationManager,
+    TheNavbar
+  },
+  created() {
+    if (this.isLoggedIn) {
+      this.fetchCart();
     }
+  },
+  computed: {
+    ...mapState([
+      'isLoading',
+      'notification',
+      'appearance'
+    ]),
+    ...mapGetters([
+      'isLoggedIn'
+    ]),
+    theme() {
+      return {
+        [this.appearance.theme]: true
+      };
+    }
+  },
+  methods: {
+    ...cart.mapActions([
+      'fetchCart'
+    ])
+  }
 };
 </script>

@@ -1,19 +1,19 @@
 const path = require('path');
 
 module.exports = {
-    configureWebpack: {
-        plugins: [
+  configureWebpack: {
+    plugins: [
 
-        ],
-        resolve: {
-            alias: {
-                '@root': path.join(__dirname, 'src'),
-                '@api': path.join(__dirname, 'src/api'),
-                '@components': path.join(__dirname, 'src/components'),
-                '@store': path.join(__dirname, 'src/store'),
-                '@utils': path.join(__dirname, 'src/utils'),
-                '@config': path.join(__dirname, 'src/config')
-            }
-        }
+    ],
+    resolve: {
+      alias: {
+        '@root': path.join(__dirname, 'src'),
+        '@api': path.join(__dirname, 'src/api'),
+        '@components': path.join(__dirname, 'src/components'),
+        '@store': path.join(__dirname, 'src/store'),
+        '@utils': path.join(__dirname, 'src/utils'),
+        '@config': path.join(__dirname, 'src/config')
+      }
     }
+  }
 };
